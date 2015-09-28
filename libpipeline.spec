@@ -4,7 +4,7 @@
 #
 Name     : libpipeline
 Version  : 1.4.1
-Release  : 7
+Release  : 8
 URL      : http://nongnu.askapache.com/libpipeline/libpipeline-1.4.1.tar.gz
 Source0  : http://nongnu.askapache.com/libpipeline/libpipeline-1.4.1.tar.gz
 Summary  : Pipeline manipulation library
