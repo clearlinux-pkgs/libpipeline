@@ -1,3 +1,39 @@
+2017-11-14  Colin Watson  <cjwatson@debian.org>
+
+	Version: 1.5.0.
+
+	* lib/Makefile.am (libpipeline_la_LDFLAGS): Bump -version-info to 6:0:5.
+
+2017-11-14  Colin Watson  <cjwatson@debian.org>
+
+	Add pipecmd_pre_exec function
+
+	* lib/pipeline-private.h (struct pipecmd): Add pre_exec_func,
+	pre_exec_free_func, and pre_exec_data.
+	* lib/pipeline.c (pipecmd_new, pipecmd_new_function,
+	pipecmd_new_sequencev): Initialise cmd->pre_exec_func,
+	cmd->pre_exec_free_func, and cmd->pre_exec_data.
+	(pipecmd_dup): Copy cmd->pre_exec_func, cmd->pre_exec_free_func, and
+	cmd->pre_exec_data if necessary.
+	(pipecmd_pre_exec): New function.
+	(pipecmd_exec): If cmd->pre_exec_func is set, call it immediately before
+	calling execvp or cmd->func.
+	* lib/pipeline.h (pipecmd_pre_exec): Add prototype.
+	(pipeline_install_post_fork): Cross-reference pipecmd_pre_exec in
+	comment.
+	* man/Makefile.am (FUNCTIONS): Add pipecmd_pre_exec.
+	* man/libpipeline.3 (Functions to build individual commands): Document
+	pipecmd_pre_exec.
+	(Functions to run pipelines and handle signals): Cross-reference
+	pipecmd_pre_exec from pipeline_install_post_fork.
+	* tests/basic.c (test_basic_pre_exec): Test pipecmd_pre_exec.
+	* NEWS: Document this.
+	* README: Update copyright years.
+
+2017-07-10  Colin Watson  <cjwatson@debian.org>
+
+	tests/read.c: Update program_name
+
 2017-07-10  Colin Watson  <cjwatson@debian.org>
 
 	Version: 1.4.2.
