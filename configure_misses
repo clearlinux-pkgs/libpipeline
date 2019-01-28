@@ -1,1 +1,3 @@
-Configure miss: whether C compiler handles -Werror -Wunknown-warning-option
+Configure miss: crtdefs.h
+Configure miss: 32-bit host C ABI
+Configure miss: whether pthread_rwlock_rdlock prefers a writer to a reader
