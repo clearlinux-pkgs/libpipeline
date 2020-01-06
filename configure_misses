@@ -1,3 +1,4 @@
+Configure miss: whether -Wno-missing-field-initializers is needed
 Configure miss: crtdefs.h
 Configure miss: 32-bit host C ABI
 Configure miss: whether pthread_rwlock_rdlock prefers a writer to a reader

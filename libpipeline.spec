@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x393587D97D86500B (cjwatson@debian.org)
 #
 Name     : libpipeline
-Version  : 1.5.1
-Release  : 20
-URL      : http://nongnu.askapache.com/libpipeline/libpipeline-1.5.1.tar.gz
-Source0  : http://nongnu.askapache.com/libpipeline/libpipeline-1.5.1.tar.gz
-Source99 : http://nongnu.askapache.com/libpipeline/libpipeline-1.5.1.tar.gz.asc
+Version  : 1.5.2
+Release  : 21
+URL      : http://nongnu.askapache.com/libpipeline/libpipeline-1.5.2.tar.gz
+Source0  : http://nongnu.askapache.com/libpipeline/libpipeline-1.5.2.tar.gz
+Source1  : http://nongnu.askapache.com/libpipeline/libpipeline-1.5.2.tar.gz.asc
 Summary  : Pipeline manipulation library
 Group    : Development/Tools
 License  : GPL-3.0 GPL-3.0+
@@ -26,6 +26,8 @@ Summary: dev components for the libpipeline package.
 Group: Development
 Requires: libpipeline-lib = %{version}-%{release}
 Provides: libpipeline-devel = %{version}-%{release}
+Requires: libpipeline = %{version}-%{release}
+Requires: libpipeline = %{version}-%{release}
 
 %description dev
 dev components for the libpipeline package.
@@ -49,29 +51,39 @@ license components for the libpipeline package.
 
 
 %prep
-%setup -q -n libpipeline-1.5.1
+%setup -q -n libpipeline-1.5.2
+cd %{_builddir}/libpipeline-1.5.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1548690094
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1578333536
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1548690094
+export SOURCE_DATE_EPOCH=1578333536
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libpipeline
-cp COPYING %{buildroot}/usr/share/package-licenses/libpipeline/COPYING
+cp %{_builddir}/libpipeline-1.5.2/COPYING %{buildroot}/usr/share/package-licenses/libpipeline/8624bcdae55baeef00cd11d5dfcfa60f68710a02
 %make_install
 
 %files
@@ -79,7 +91,7 @@ cp COPYING %{buildroot}/usr/share/package-licenses/libpipeline/COPYING
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/*.h
+/usr/include/pipeline.h
 /usr/lib64/libpipeline.so
 /usr/lib64/pkgconfig/libpipeline.pc
 /usr/share/man/man3/libpipeline.3
@@ -154,8 +166,8 @@ cp COPYING %{buildroot}/usr/share/package-licenses/libpipeline/COPYING
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libpipeline.so.1
-/usr/lib64/libpipeline.so.1.5.1
+/usr/lib64/libpipeline.so.1.5.2
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/libpipeline/COPYING
+/usr/share/package-licenses/libpipeline/8624bcdae55baeef00cd11d5dfcfa60f68710a02

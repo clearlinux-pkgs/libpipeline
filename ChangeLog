@@ -1,3 +1,98 @@
+2020-01-01  Colin Watson  <cjwatson@debian.org>
+
+	Version: 1.5.2
+
+	* lib/Makefile.am (libpipeline_la_LDFLAGS): Bump -version-info to 6:2:5.
+	* README: Update copyright dates.
+
+2020-01-01  Colin Watson  <cjwatson@debian.org>
+
+	* NEWS: Document pipeline_start doc change
+
+2020-01-01  Colin Watson  <cjwatson@debian.org>
+
+	pipecmd_exec: Flush stdio in PIPECMD_FUNCTION case
+
+	This fixes a regression in eceb4fc9c1a800739f3876a5c9538376adc77876
+	where we could lose some output from functions that write to standard
+	output but don't explicitly flush.
+
+	* lib/pipeline.c (pipecmd_exec): Flush output streams before exiting in
+	the PIPECMD_FUNCTION case.
+
+2020-01-01  Colin Watson  <cjwatson@debian.org>
+
+	pipeline_start: Document that standard FDs must be open
+
+	Fixes Ubuntu bug #992271.
+
+	* lib/pipeline.h (pipeline_start): Document that FDs 0, 1, and 2 must be
+	open before calling this function.
+	* man/libpipeline.3 (pipeline_start): Likewise.
+
+2019-12-27  Colin Watson  <cjwatson@debian.org>
+
+	Use _exit rather than exit in pipecmd_exec
+
+	This avoids bugs such as functions registered using atexit being called
+	multiple times.
+
+	* lib/pipeline.c (pipecmd_exec): Call _exit rather than exit.
+	* NEWS: Document this.
+
+2019-08-31  Colin Watson  <cjwatson@debian.org>
+
+	Enable many more GCC warnings
+
+	* bootstrap.conf (gnulib_modules): Add manywarnings.<Paste>
+	* configure.ac: Add gl_MANYWARN_ALL_GCC, with some refinements to disable
+	-Wsystem-headers, -Wmissing-field-initializers, and -Winline.
+
+2019-08-31  Colin Watson  <cjwatson@debian.org>
+
+	Add several function attributes suggested by GCC
+
+	* lib/debug.c (vdebug): Mark first argument as a printf format string.
+	* lib/pipeline.c (pipecmd_get_nargs, pipeline_get_ncommands,
+	pipeline_get_command, pipeline_get_pid, pipeline_peek_size): Mark as
+	pure.
+
+2019-08-31  Colin Watson  <cjwatson@debian.org>
+
+	Make several functions static
+
+	* tests/argstr.c (argstr_suite): Make static.
+	* tests/basic.c (basic_suite): Likewise.
+	* tests/exec.c (exec_suite): Likewise.
+	* tests/inspect.c (inspect_suite): Likewise.
+	* tests/pump.c (pump_suite): Likewise.
+	* tests/read.c (read_suite): Likewise.
+	* tests/redirect.c (redirect_suite): Likewise.
+
+2019-08-31  Colin Watson  <cjwatson@debian.org>
+
+	Simplify some GCC attribute handling
+
+	We have to be a little careful, as we can't use Gnulib in the public
+	<pipeline.h> header; but we can rely on it for internal compilation
+	units.
+
+	* lib/pipeline.c (passthrough): Use _GL_UNUSED rather than
+	PIPELINE_ATTR_UNUSED.
+	* tests/basic.c (pre_exec): Likewise.
+	* tests/common.h (MAIN): Likewise.
+	* tests/inspect.c (pid_helper): Likewise.
+	* tests/pump.c (tee_source): Likewise.
+	* lib/pipeline.h (PIPELINE_ATTR_UNUSED): Note that this is unused, but
+	preserved to avoid breaking (even undocumented) API.
+
+2019-01-30  Colin Watson  <cjwatson@debian.org>
+
+	Use HTTPS URL
+
+	* README, lib/libpipeline.pc.in (URL): Update homepage URL to
+	https://nongnu.org/libpipeline/.
+
 2019-01-27  Colin Watson  <cjwatson@debian.org>
 
 	Version: 1.5.1
