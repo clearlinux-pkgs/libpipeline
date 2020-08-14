@@ -1,3 +1,41 @@
+2020-08-13  Colin Watson  <cjwatson@debian.org>
+
+	Version: 1.5.3
+
+	* lib/Makefile.am (libpipeline_la_LDFLAGS): Bump -version-info to 6:3:5.
+
+2020-08-03  Colin Watson  <cjwatson@debian.org>
+
+	Port tests to the modern Check API
+
+	Fixes Savannah bug #58883.
+
+	* configure.ac: Test for check >= 0.9.10.
+	* tests/argstr.c, tests/basic.c, tests/exec.c, tests/inspect.c,
+	tests/pump.c, tests/read.c, tests/redirect.c: Replace uses of
+	fail_unless and fail_if with appropriate ck_assert_* calls.  In most
+	cases these now use more specific equality etc. tests rather than just
+	passing arbitrary predicates.
+	* README: Document updated dependency.
+	* NEWS: Document this.
+
+2020-07-05  Colin Watson  <cjwatson@debian.org>
+
+	Fix handling of read/write errors
+
+	safe_read and safe_write return size_t and define SAFE_READ_ERROR and
+	SAFE_WRITE_ERROR as error return values.  We had previously been
+	assigning their result to a signed value.  As a result, whether
+	passthrough, pipeline_pump, and get_block would detect read/write errors
+	was implementation-defined.
+
+	* lib/pipeline.c (passthrough, get_block): Assign safe_read return value
+	to a size_t rather than a signed integer type, and check for
+	SAFE_READ_ERROR rather than negative values.
+	(pipeline_pump): Assign safe_write return value to a size_t rather than
+	an ssize_t, and check for SAFE_WRITE_ERROR rather than negative values.
+	* NEWS: Document this.
+
 2020-01-01  Colin Watson  <cjwatson@debian.org>
 
 	Version: 1.5.2
