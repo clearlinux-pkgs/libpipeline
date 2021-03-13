@@ -7,9 +7,9 @@
 Name     : libpipeline
 Version  : 1.5.3
 Release  : 22
-URL      : http://nongnu.askapache.com/libpipeline/libpipeline-1.5.3.tar.gz
-Source0  : http://nongnu.askapache.com/libpipeline/libpipeline-1.5.3.tar.gz
-Source1  : http://nongnu.askapache.com/libpipeline/libpipeline-1.5.3.tar.gz.asc
+URL      : https://download.savannah.nongnu.org/releases/libpipeline/libpipeline-1.5.3.tar.gz
+Source0  : https://download.savannah.nongnu.org/releases/libpipeline/libpipeline-1.5.3.tar.gz
+Source1  : https://download.savannah.nongnu.org/releases/libpipeline/libpipeline-1.5.3.tar.gz.asc
 Summary  : Pipeline manipulation library
 Group    : Development/Tools
 License  : GPL-3.0 GPL-3.0+
