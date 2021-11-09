@@ -1,3 +1,124 @@
+2021-11-07  Colin Watson  <cjwatson@debian.org>
+
+	Version: 1.5.4
+
+	* lib/Makefile.am (libpipeline_la_LDFLAGS): Bump -version-info to 6:4:5.
+
+2021-11-07  Colin Watson  <cjwatson@debian.org>
+
+	Ignore the "clang-format" commit for "git blame"
+
+	Developers should apply the following config setting:
+
+	    git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+2021-11-07  Colin Watson  <cjwatson@debian.org>
+
+	Introduce clang-format
+
+	This relieves me of the cognitive burden of having to think about
+	trivial formatting details (especially when reviewing code from others,
+	but also for myself).  In most cases the reformatted code is equivalent
+	or superior in terms of my preferred style to what I wrote myself; there
+	was one exception (in pipeline_dump) where I disabled formatting.
+
+	* .clang-format: New file.
+	* .pre-commit-config.yaml: Add clang-format hook.
+	* lib/*, tests/*: Reformat using clang-format.
+
+2021-11-07  Colin Watson  <cjwatson@debian.org>
+
+	Fix build warnings in tests
+
+	* tests/common.c (temp_dir_setup): Use ck_abort_msg rather than fail.
+	* tests/exec.c (test_exec_process, test_exec_function): Likewise.
+	* tests/read.c (test_read_long_line): Likewise.
+	* tests/redirect.c (test_redirect_files): Likewise.
+
+2021-11-07  Colin Watson  <cjwatson@debian.org>
+
+	Introduce pre-commit
+
+	* .pre-commit-config.yaml: New file.
+	* lib/appendstr.c, tests/pump.c: Remove trailing whitespace.
+
+2021-11-07  Colin Watson  <cjwatson@debian.org>
+
+	Simplify conditional SIGPIPE handling
+
+	* lib/pipeline.c (IS_SIGPIPE): New macro.
+	(pipecmd_exec, pipeline_wait_all): Use IS_SIGPIPE, thereby avoiding
+	needing to put parts of an if/else chain inside #ifdef.
+
+2021-09-19  Colin Watson  <cjwatson@debian.org>
+
+	Update some obsolete Autoconf macros
+
+	* configure.ac: Replace AC_GNU_SOURCE and AC_ISC_POSIX with
+	AC_USE_SYSTEM_EXTENSIONS.  Replace AC_CONFIG_HEADER with
+	AC_CONFIG_HEADERS.
+
+2021-09-19  Colin Watson  <cjwatson@debian.org>
+
+	Stop using obsolete AC_TRY_RUN
+
+	This has been obsolete since Autoconf 2.55.  Use its AC_RUN_IFELSE
+	expansion instead.
+
+	* m4/pipeline-socketpair.m4 (PIPELINE_SOCKETPAIR_PIPE): Expand
+	AC_TRY_RUN calls using AC_RUN_IFELSE.
+
+2021-06-05  Colin Watson  <cjwatson@debian.org>
+
+	Update remaining HTTP URLs to HTTPS
+
+	* COPYING: Update from current contents of
+	https://www.gnu.org/licenses/gpl-3.0.txt (no substantive licensing
+	changes, only updated URLs).
+	* Makefile.am (ACLOCAL_AMFLAGS): Update URL in comment to use HTTPS.
+	* README.md (Installation): Update URLs for pkg-config and check.
+	(Note on GPL versions): Update GNU licence compatibility URL to use
+	HTTPS.
+	* lib/pipeline.c (clearenv): Update dovecot reference; the old URL used
+	HTTP and had gone stale.
+
+2020-11-25  Colin Watson  <cjwatson@debian.org>
+
+	Upgrade to Gnulib 20201125
+
+	In line with Gnulib, we now require Autoconf 2.64.
+
+	* bootstrap: Sync to Gnulib f2a67f071d170920314c9a3b8de3e85259b4e010.
+	* bootstrap.conf (GNULIB_REVISION): Set to
+	f2a67f071d170920314c9a3b8de3e85259b4e010.
+	(buildreq): Bump required autoconf version to 2.64.
+	* configure.ac (AC_PREREQ): Bump to 2.64.
+	* NEWS: Document this.
+
+2020-11-25  Colin Watson  <cjwatson@debian.org>
+
+	NEWS: Document move to GitLab
+
+2020-11-25  Colin Watson  <cjwatson@debian.org>
+
+	Flesh out README
+
+	* README: Move to ...
+	* README.md: ... here.  Reformat as Markdown.
+	(Using the library): New section, mainly borrowed from the project
+	homepage.
+
+2020-11-25  Colin Watson  <cjwatson@debian.org>
+
+	Document migration to GitLab
+
+	* README: Add link to GitLab repository.
+	(Bug reporting): New section.
+
+2020-11-25  Colin Watson  <cjwatson@debian.org>
+
+	Add .gitlab-ci.yml
+
 2020-08-13  Colin Watson  <cjwatson@debian.org>
 
 	Version: 1.5.3

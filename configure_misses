@@ -1,4 +1,7 @@
-Configure miss: whether -Wno-missing-field-initializers is needed
+Configure miss: compiler option needed when checking for declarations
 Configure miss: crtdefs.h
-Configure miss: 32-bit host C ABI
+Configure miss: gcc options needed to detect all undeclared functions
+Configure miss: whether -Wno-missing-field-initializers is needed
 Configure miss: whether pthread_rwlock_rdlock prefers a writer to a reader
+Configure miss: whether the compiler is clang
+Configure miss: whether the compiler produces multi-arch binaries
