@@ -1,3 +1,115 @@
+2022-01-03  Colin Watson  <cjwatson@debian.org>
+
+	Version: 1.5.5
+
+	* lib/Makefile.am (libpipeline_la_LDFLAGS): Bump -version-info to 6:5:5.
+
+2022-01-03  Colin Watson  <cjwatson@debian.org>
+
+	Document recent changes
+
+	* NEWS: Document changes since 1.5.4.
+
+2022-01-03  Colin Watson  <cjwatson@debian.org>
+
+	Remove release.sh
+
+	GitLab CI handles building releases now.
+
+	* release.sh: Remove.
+	* Makefile.am (EXTRA_DIST): Remove release.sh.
+
+2022-01-03  Colin Watson  <cjwatson@debian.org>
+
+	Add release automation
+
+	When a tag is pushed to GitLab, upload the bootstrapped source tarball
+	to the package registry, and create a release in GitLab associated with
+	the tag.
+
+	* .gitlab-ci.yml (stages): Remove test, since it had no jobs.  Add
+	upload and release.
+	(upload, release): New jobs.
+
+2022-01-02  Colin Watson  <cjwatson@debian.org>
+
+	Make NEWS.md list formatting more compact
+
+2022-01-02  Colin Watson  <cjwatson@debian.org>
+
+	Reformat release notes as Markdown
+
+	* NEWS: Move to ...
+	* NEWS.md: ... here.  Reformat as Markdown.
+	* Makefile.am (dist_noinst_DATA): Replace NEWS with NEWS.md.
+
+2022-01-02  Colin Watson  <cjwatson@debian.org>
+
+	Remove superfluous quotes
+
+	* Makefile.am (gen_start_date): Remove superfluous quotes.
+
+2022-01-02  Colin Watson  <cjwatson@debian.org>
+
+	Trim down direct Gnulib dependencies slightly
+
+	* bootstrap.conf (gnulib_modules): Replace signal with signal-h, since
+	we use the corresponding header file directly but not the corresponding
+	function.
+
+2022-01-02  Colin Watson  <cjwatson@debian.org>
+
+	Update to Gnulib 20211231
+
+	* bootstrap: Sync to Gnulib 14db2b71b5bd05b94ec6126617fd32cd5f1016cd.
+	* bootstrap.conf (GNULIB_REVISION): Set to
+	14db2b71b5bd05b94ec6126617fd32cd5f1016cd.
+	(--enable-gcc-warnings): New option, based on code in coreutils.  Use
+	this to enable -fanalyzer only if --enable-gcc-warnings=expensive is
+	used; it's useful but slow.
+
+2022-01-02  Colin Watson  <cjwatson@debian.org>
+
+	Add build-distcheck CI artifact
+
+	This should eventually allow publishing release tarballs built by a CI
+	process rather than on my laptop.
+
+	* .gitlab-ci.yml (variables): Set GIT_DEPTH to 0; we need full history
+	in order to build the ChangeLog file.
+	(build-distcheck:before_script): Add git, needed by gitlog-to-changelog.
+	(build-distcheck:artifacts): Add bootstrapped/*.tar.gz.
+
+2022-01-02  Colin Watson  <cjwatson@debian.org>
+
+	Switch CI image to debian:unstable
+
+	This gives us newer versions of various dependencies such as the
+	autotools.
+
+	* .gitlab-ci.yml (default:image): Switch from gcc to debian:unstable.
+	(pre-commit:before_script): Explicitly install git.
+	(bootstrap:before_script): Explicitly install git and pkg-config.
+
+2022-01-01  Colin Watson  <cjwatson@debian.org>
+
+	Use Gnulib attribute.h properly
+
+	We should be using public names rather than private ones.
+
+	* bootstrap.conf (gnulib_modules): Add attribute.
+	* lib/pipeline.c (pipecmd_get_nargs, pipeline_get_ncommands,
+	pipeline_get_command, pipeline_get_pid, pipeline_peek_size): Use
+	ATTRIBUTE_PURE rather than _GL_ATTRIBUTE_PURE.
+
+2021-11-28  Colin Watson  <cjwatson@debian.org>
+
+	Run pre-commit in GitLab CI
+
+	* .gitlab-ci.yml (stages): Add bootstrap.
+	(pre-commit): New job.
+	(bootstrap): Move to bootstrap stage.
+
 2021-11-07  Colin Watson  <cjwatson@debian.org>
 
 	Version: 1.5.4
@@ -140,7 +252,7 @@
 	* README: Document updated dependency.
 	* NEWS: Document this.
 
-2020-07-05  Colin Watson  <cjwatson@debian.org>
+2020-07-04  Colin Watson  <cjwatson@debian.org>
 
 	Fix handling of read/write errors
 
@@ -199,7 +311,7 @@
 	* lib/pipeline.c (pipecmd_exec): Call _exit rather than exit.
 	* NEWS: Document this.
 
-2019-08-31  Colin Watson  <cjwatson@debian.org>
+2019-08-30  Colin Watson  <cjwatson@debian.org>
 
 	Enable many more GCC warnings
 
@@ -207,7 +319,7 @@
 	* configure.ac: Add gl_MANYWARN_ALL_GCC, with some refinements to disable
 	-Wsystem-headers, -Wmissing-field-initializers, and -Winline.
 
-2019-08-31  Colin Watson  <cjwatson@debian.org>
+2019-08-30  Colin Watson  <cjwatson@debian.org>
 
 	Add several function attributes suggested by GCC
 
@@ -216,7 +328,7 @@
 	pipeline_get_command, pipeline_get_pid, pipeline_peek_size): Mark as
 	pure.
 
-2019-08-31  Colin Watson  <cjwatson@debian.org>
+2019-08-30  Colin Watson  <cjwatson@debian.org>
 
 	Make several functions static
 
@@ -228,7 +340,7 @@
 	* tests/read.c (read_suite): Likewise.
 	* tests/redirect.c (redirect_suite): Likewise.
 
-2019-08-31  Colin Watson  <cjwatson@debian.org>
+2019-08-30  Colin Watson  <cjwatson@debian.org>
 
 	Simplify some GCC attribute handling
 
@@ -354,7 +466,7 @@
 	(GNULIB_REVISION): Set to 90f289f249a266b1afb9c63e182f5d979d17df5f.
 	* configure.ac (AM_PROG_AR, LT_INIT): Move below gl_EARLY.
 
-2018-05-28  Colin Watson  <cjwatson@debian.org>
+2018-05-27  Colin Watson  <cjwatson@debian.org>
 
 	Switch to bootstrap
 
@@ -508,11 +620,11 @@
 	* tests/basic.c (test_basic_fchdir): Test pipecmd_fchdir.
 	* NEWS: Document this.
 
-2014-10-23  Colin Watson  <cjwatson@debian.org>
+2014-10-22  Colin Watson  <cjwatson@debian.org>
 
 	NEWS: Document recent Solaris portability changes
 
-2014-10-23  Colin Watson  <cjwatson@debian.org>
+2014-10-22  Colin Watson  <cjwatson@debian.org>
 
 	Add a cleaner way to suppress "Terminated" errors in tests
 
@@ -575,7 +687,7 @@
 
 	Update to config.guess 2014-03-23 and config.sub 2014-05-01.
 
-2014-04-24  Colin Watson  <cjwatson@debian.org>
+2014-04-23  Colin Watson  <cjwatson@debian.org>
 
 	Fix test failures on Cygwin.
 
