@@ -1,3 +1,87 @@
+2022-04-23  Colin Watson  <cjwatson@debian.org>
+
+	Version: 1.5.6
+
+	* lib/Makefile.am (libpipeline_la_LDFLAGS): Bump -version-info to 6:6:5.
+
+2022-04-23  Colin Watson  <cjwatson@debian.org>
+
+	gitlab-ci: Run tests with VERBOSE=1
+
+	This makes it easier to diagnose test failures.
+
+	* .gitlab-ci.yml (build-distcheck:script, build-out-of-tree:script): Set
+	VERBOSE=1.
+
+2022-04-23  Colin Watson  <cjwatson@debian.org>
+
+	Update pre-commit hooks
+
+	* .pre-commit-config.yaml (pre-commit-hooks): Update to v4.2.0.
+	(clang-format): Update to v14.0.1.
+	* lib/pipeline-private.h, lib/pipeline.h: Reformat enum definitions.
+
+2022-04-23  Colin Watson  <cjwatson@debian.org>
+
+	Fix handling of leading whitespace in argstr functions
+
+	Fixes Savannah bug #62355 (in man-db).
+
+	* lib/pipeline.c (argstr_get_word): Skip whitespace at the start of
+	words rather than at the end; leading whitespace otherwise resulted in
+	prematurely returning NULL.
+	* tests/argstr.c (test_argstr_excess_whitespace): New test.
+	(argstr_suite): Call test_argstr_excess_whitespace.
+	* NEWS.md: Document this.
+
+2022-04-23  Colin Watson  <cjwatson@debian.org>
+
+	Simplify static analysis of fatal errors
+
+	The usual idiom for fatal error reporting in libpipeline is `error
+	(FATAL, ...)` (there are a few cases using different exit codes, but
+	they're less common).  Unfortunately, there's no easy way to tell the
+	compiler that this call doesn't return, because `error (0, ...)` *does*
+	return.  As a result, some call sites required extra work to give the
+	compiler this information, which can sometimes make a difference to
+	static analysis.
+
+	To simplify this, add a new `fatal` helper function which always exits
+	`FATAL` (i.e. 2) and never returns.  This is declared with
+	`PIPELINE_ATTR_NORETURN` so that the compiler can straightforwardly know
+	what's going on.
+
+	* bootstrap.conf (gnulib_modules): Add verror.
+	* lib/fatal.c, lib/fatal.h: New files.
+	* lib/Makefile.am (libpipeline_la_SOURCES): Add fatal.c and fatal.h.
+
+	* lib/pipeline.c (pipecmd_new_argstr, pipecmd_exec,
+	pipeline_install_sigchld, pipeline_start, pipeline_wait_all,
+	pipeline_pump): Use fatal.
+
+2022-02-08  Colin Watson  <cjwatson@debian.org>
+
+	Explicitly import Gnulib raise module
+
+	It was already implicitly included, but we explicitly use the raise
+	function in pipecmd_exec and pipeline_wait_all.
+
+	* bootstrap.conf (gnulib_modules): Add raise.
+
+2022-01-16  Colin Watson  <cjwatson@debian.org>
+
+	Update to Gnulib 20220116
+
+	* bootstrap: Sync to Gnulib 1eae0f7ea3c220d054025f2c9211700665f9f4a0.
+	* bootstrap.conf (GNULIB_REVISION): Set to
+	1eae0f7ea3c220d054025f2c9211700665f9f4a0.
+
+2022-01-16  Colin Watson  <cjwatson@debian.org>
+
+	Update pre-commit hooks
+
+	* .pre-commit-config.yaml (pre-commit-hooks): Update to v4.1.0.
+
 2022-01-03  Colin Watson  <cjwatson@debian.org>
 
 	Version: 1.5.5
