@@ -1,3 +1,88 @@
+2022-11-13  Colin Watson  <cjwatson@debian.org>
+
+	Version: 1.5.7
+
+	* lib/Makefile.am (libpipeline_la_LDFLAGS): Bump -version-info to 6:7:5.
+
+2022-11-13  Colin Watson  <cjwatson@debian.org>
+
+	Make socketpair configure tests compatible with C23
+
+	K&R-style zero-argument function definitions will no longer be
+	permitted.
+
+	* m4/pipeline-socketpair.m4 (PIPELINE_SOCKETPAIR_PIPE,
+	PIPELINE_SOCKETPAIR_MODE): Use `int main(void)`, not `int main()`.
+	* NEWS.md: Document this.
+
+2022-08-12  Colin Watson  <cjwatson@debian.org>
+
+	Update pre-commit hooks
+
+	* .pre-commit-config.yaml (pre-commit-hooks): Update to v4.3.0.
+	(clang-format): Update to v14.0.6.
+
+2022-06-03  Colin Watson  <cjwatson@debian.org>
+
+	Update manual page date
+
+	* man/libpipeline.3 (.Dd): Update to the date of the last substantial
+	modification.  Leaving this as 2010 suggested more antiquity than we
+	need to suggest.
+
+2022-06-03  Colin Watson  <cjwatson@debian.org>
+
+	Update home page URL
+
+	* README.md: Use `https://libpipeline.gitlab.io/libpipeline/`.
+	* lib/libpipeline.pc.in (URL): Likewise.
+
+2022-06-03  Colin Watson  <cjwatson@debian.org>
+
+	web: Update last release
+
+	* web/index.html: Update to 1.5.6.
+
+2022-06-03  Colin Watson  <cjwatson@debian.org>
+
+	web: Fix last-modified date generation
+
+	* .gitlab-ci.yml: Replace `@DATE@` with the current date in
+	`public/index.html`.
+	* web/index.html: Use `@DATE@` template.
+
+2022-06-03  Colin Watson  <cjwatson@debian.org>
+
+	web: Assorted URL updates
+
+	* web/index.html: Update Git URLs to GitLab.  Chase various redirects
+	and/or switch to HTTPS.  Remove old Savannah link.
+
+2022-06-03  Colin Watson  <cjwatson@debian.org>
+
+	Add GitLab Pages site
+
+	* .gitlab-ci.yml (stages): Add deploy.
+	(pages): New job.
+	* web/index.html, web/libpipeline-lightning-talk.odp, web/standard.css,
+	web/white.css: New files.
+
+2022-06-03  Colin Watson  <cjwatson@debian.org>
+
+	Transferred Git repository to new group
+
+	* README.md: Change GitLab URL to
+	https://gitlab.com/libpipeline/libpipeline.
+	* NEWS.md: Document this.
+
+2022-04-28  Colin Watson  <cjwatson@debian.org>
+
+	Add notes to libpipeline(3) of when functions were added
+
+	* man/libpipeline.3 (DESCRIPTION, ENVIRONMENT): Add various "Added in"
+	notes.
+	* NEWS.md: Document this.
+
 2022-04-23  Colin Watson  <cjwatson@debian.org>
 
 	Version: 1.5.6
