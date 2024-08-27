@@ -1,3 +1,165 @@
+2024-08-27  Colin Watson  <cjwatson@debian.org>
+
+	Version: 1.5.8
+
+	* lib/Makefile.am (libpipeline_la_LDFLAGS): Bump -version-info to 6:8:5.
+
+2024-08-27  Colin Watson  <cjwatson@debian.org>
+
+	Recommend nullptr for varargs termination
+
+	This is safer than `NULL`, which some platforms define to be `0` rather
+	than `(void *) 0` (see
+	https://thephd.dev/c23-is-coming-here-is-what-is-on-the-menu#n3042---introduce-the-nullptr-constant).
+	If it isn't available, `(void *) 0` is a better fallback than `NULL`.
+
+	* README.md, man/libpipeline.3, web/index.html: Recommend `nullptr` or
+	`(void *) 0` rather than `NULL` where used to terminate variadic
+	argument lists.
+
+2024-08-27  Colin Watson  <cjwatson@debian.org>
+
+	Update links to man-db
+
+	* README.md, web/index.html: Link to <https://man-db.gitlab.io/man-db/>
+	rather than <https://nongnu.org/man-db>.
+
+2024-08-04  Colin Watson  <cjwatson@debian.org>
+
+	Use C23-style nullptr
+
+	* bootstrap.conf (gnulib_modules): Add `nullptr`.
+	* lib/pipeline.c, tests/basic.c, tests/common.c, tests/exec.c,
+	tests/inspect.c, tests/pump.c, tests/redirect.c: Replace `(void *) 0`
+	with `nullptr`.
+	* NEWS.md: Document this.
+
+2024-07-14  Colin Watson  <cjwatson@debian.org>
+
+	Update pre-commit hooks
+
+	* .pre-commit-config.yaml (pre-commit-hooks): Update to v4.6.0.
+	(clang-format): Update to v18.1.8.
+
+2024-07-14  Colin Watson  <cjwatson@debian.org>
+
+	Upgrade to Gnulib stable-202407
+
+	* bootstrap: Sync to Gnulib 0ba13435a9362bec0ff5fd0830907b9fac723e41.
+	* bootstrap.conf (GNULIB_REVISION): Set to
+	0ba13435a9362bec0ff5fd0830907b9fac723e41.
+	* NEWS.md: Document this.
+
+2024-03-16  Colin Watson  <cjwatson@debian.org>
+
+	Update pre-commit hooks
+
+	* .pre-commit-config.yaml (clang-format): Update to v18.1.1.
+
+2024-01-20  Colin Watson  <cjwatson@debian.org>
+
+	Update pre-commit hooks
+
+	* .pre-commit-config.yaml (pre-commit-hooks): Update to v4.5.0.
+	(clang-format): Update to v17.0.6.
+	* lib/pipeline.c, lib/pipeline.h, tests/common.h: Reformat macro
+	definitions.
+
+2024-01-20  Colin Watson  <cjwatson@debian.org>
+
+	Upgrade to Gnulib stable-202401
+
+	* bootstrap: Sync to Gnulib c78af17a931bb36e00c5f698b7fd37deb4a87f58.
+	* bootstrap.conf (GNULIB_REVISION): Set to
+	c78af17a931bb36e00c5f698b7fd37deb4a87f58.
+	* NEWS.md: Document this.
+
+2023-12-08  Colin Watson  <cjwatson@debian.org>
+
+	Upgrade to Gnulib stable-202307 as of 20231208
+
+	* bootstrap.conf (GNULIB_REVISION): Set to
+	51ff7c1242903bcc90b35baf5ec2e6a176cf912a.
+
+2023-09-21  Colin Watson  <cjwatson@debian.org>
+
+	Explain how to generate INSTALL
+
+	* README.md: Explain that you may need to run `./bootstrap` to create
+	`INSTALL`.
+
+2023-07-22  Colin Watson  <cjwatson@debian.org>
+
+	Upgrade to Gnulib stable-202307
+
+	* bootstrap: Sync to Gnulib b7f7ed06961454cdf77b93c6c00c3e3f26202663.
+	* bootstrap.conf (GNULIB_REVISION): Set to
+	b7f7ed06961454cdf77b93c6c00c3e3f26202663.
+	* NEWS.md: Document this.
+
+2023-03-02  Colin Watson  <cjwatson@debian.org>
+
+	Update pre-commit hooks
+
+	* .pre-commit-config.yaml (clang-format): Update to v15.0.7.
+
+2023-03-02  Colin Watson  <cjwatson@debian.org>
+
+	Upgrade to Gnulib stable-202301 as of 20230209
+
+	* bootstrap.conf (GNULIB_REVISION): Set to
+	c5dc86ca5c2e5c16177508bc32afe755b7995685.
+
+2023-01-14  Colin Watson  <cjwatson@debian.org>
+
+	Copy files during bootstrapping
+
+	* .gitlab-ci.yml (bootstrap): Run `./bootstrap` with `--copy`.
+
+2023-01-14  Colin Watson  <cjwatson@debian.org>
+
+	Tighten regex
+
+	* .pre-commit-config.yaml (pre-commit-hooks): Tighten `files` regex for
+	`file-contents-sorter`.
+
+2023-01-14  Colin Watson  <cjwatson@debian.org>
+
+	Ensure that .gitignore remains sorted
+
+	* .pre-commit-config.yaml (pre-commit-hooks): Add `file-contents-sorter`
+	for `.gitignore`.
+
+2023-01-14  Colin Watson  <cjwatson@debian.org>
+
+	Update pre-commit hooks
+
+	* .pre-commit-config.yaml (pre-commit-hooks): Update to v4.4.0.
+	(clang-format): Update to v15.0.6.
+
+2023-01-14  Colin Watson  <cjwatson@debian.org>
+
+	Document Automake >= 1.14 requirement
+
+	* NEWS.md: Document that Gnulib now requires Automake >= 1.14.
+
+2023-01-14  Colin Watson  <cjwatson@debian.org>
+
+	Upgrade to Gnulib stable-202301
+
+	* bootstrap: Sync to Gnulib 32a72f45374c9a36afa574d1a08bb98090270012.
+	* bootstrap.conf (GNULIB_REVISION): Set to
+	32a72f45374c9a36afa574d1a08bb98090270012.
+	(buildreq): Bump required automake version to 1.14.
+	* configure.ac (AM_INIT_AUTOMAKE): Bump to 1.14.
+	* NEWS.md: Document this.
+
+2022-11-13  Colin Watson  <cjwatson@debian.org>
+
+	web: Update last release
+
+	* web/index.html: Update to 1.5.7.
+
 2022-11-13  Colin Watson  <cjwatson@debian.org>
 
 	Version: 1.5.7

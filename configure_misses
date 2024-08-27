@@ -1,8 +1,30 @@
+Configure miss: C nullptr
+Configure miss: C nullptr
+Configure miss: bool, true, false
+Configure miss: bool, true, false
+Configure miss: compiler option needed when checking for declarations
 Configure miss: compiler option needed when checking for declarations
 Configure miss: crtdefs.h
+Configure miss: crtdefs.h
+Configure miss: gcc option to support large files
+Configure miss: gcc option to support large files
 Configure miss: gcc options needed to detect all undeclared functions
+Configure miss: gcc options needed to detect all undeclared functions
+Configure miss: unreachable
+Configure miss: unreachable
 Configure miss: whether -Wno-missing-field-initializers is needed
+Configure miss: whether -Wno-missing-field-initializers is needed
+Configure miss: whether _putenv is declared
+Configure miss: whether _putenv is declared
+Configure miss: whether ctype.h defines __header_inline
+Configure miss: whether ctype.h defines __header_inline
+Configure miss: whether nullptr_t needs <stddef.h>
+Configure miss: whether nullptr_t needs <stddef.h>
+Configure miss: whether pthread_rwlock_rdlock prefers a writer to a reader
 Configure miss: whether pthread_rwlock_rdlock prefers a writer to a reader
 Configure miss: whether the compiler is clang
+Configure miss: whether the compiler is clang
 Configure miss: whether the compiler produces multi-arch binaries
+Configure miss: whether the compiler produces multi-arch binaries
+Configure miss: x86_64-generic-linux-gnu-file
 Configure miss: x86_64-generic-linux-gnu-file
